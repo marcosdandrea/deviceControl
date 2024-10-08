@@ -1,0 +1,15 @@
+.routineButton{
+    height: 100%;
+    aspect-ratio: 1;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: brightness(1);
+    transition: all 0.1s ease-in-out;
+
+}
+
+.routineButton:active{
+    filter: brightness(0.5)
+}

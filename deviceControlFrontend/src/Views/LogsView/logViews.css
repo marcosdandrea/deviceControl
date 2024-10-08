@@ -1,0 +1,26 @@
+.logViews{
+    background-color: var(--background);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.logViews .logsContainer{
+    box-sizing: border-box;
+    flex: 1;
+    overflow: hidden;
+}
+
+.logViews .titles{
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+}
+
+.logViews .content{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

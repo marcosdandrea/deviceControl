@@ -1,0 +1,13 @@
+.sectionHeader{
+    width: 100%;
+    background-color: var(--disabled);
+    display: flex;
+    margin-bottom: 2px;
+    padding: 0.5rem;
+    box-sizing: border-box;
+}
+
+.sectionHeader .title{
+    display: flex;
+    column-gap: 0.5rem;
+}

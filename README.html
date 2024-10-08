@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        h2 {
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+        p {
+            margin: 10px 0;
+        }
+        ul {
+            margin: 5px 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+        .description {
+            font-weight: bold;
+        }
+        pre {
+            background-color: #f4f4f4;
+            border-left: 4px solid #ccc;
+            padding: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Device Control</h1>
+    <p>Este documento proporciona una guía completa para configurar y gestionar rutinas y tareas en el sistema de control de dispositivos. Aquí encontrará la información necesaria para definir triggers, jobs y conditions, así como ejemplos prácticos para ayudarle a configurar sus rutinas de manera efectiva.</p>
+    <p>A continuación, se muestra un ejemplo de una estructura de configuración básica para rutinas y tareas:</p>
+    <pre>
+{
+    "routines": [
+        {
+            "id": "routine1",
+            "name": "Routine 1",
+            "description": "This is routine 1",
+            "isSequential": true,
+            "stopOnTaskFailure": false,
+            "trigger": [
+                {
+                    "type": "api",
+                    "params": {
+                        "method": "GET",
+                        "endpoint": "/trigger/routine1"
+                    }
+                },
+                {
+                    "type": "cron",
+                    "params": {
+                        "day": 3,
+                        "time": "15:44"
+                    }
+                },
+                {
+                    "type": "udp",
+                    "params": {
+                        "port": 5000,
+                        "message": "trigger"
+                    }
+                }
+            ],
+            "tasks": [
+                {
+                    "name": "Tarea numero 1",
+                    "job": {
+                        "type": "wait",
+                        "params": {
+                            "time": 10000
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "routine2",
+            "name": "Routine 2",
+            "description": "This is routine 2",
+            "isSequential": true,
+            "stopOnTaskFailure": false,
+            "trigger": [
+                {
+                    "type": "event",
+                    "params": {
+                        "name": "routine1:completed"
+                    }
+                }
+            ],
+            "tasks": [
+                {
+                    "name": "Tarea numero 1",
+                    "retries": 3,
+                    "retryDelay": 20000,
+                    "job": {
+                        "type": "wakeOnLan",
+                        "params": {
+                            "macAddress": "D8:9E:F3:0A:8A:D3"
+                        }
+                    },
+                    "condition": {
+                        "type": "ping",
+                        "params": {
+                            "ip": "192.168.100.63"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
+    </pre>
+
+        <h2>Triggers</h2>
+        
+            <p class="description">api</p>
+            <p>Permite iniciar la ejecución de una rutina mediante una llamda a un determinado endpoint con un determinado metodo.</p>
+            <ul>
+                
+                    <li><strong>method:</strong> Método HTTP utilizado para la llamada al endpoint, ejemplo: GET, POST, PATCH, DELETE</li>
+                
+                    <li><strong>endpoint:</strong> Ruta al endpoint que será llamado con el formato '/ruta01/ruta02/endpoint'</li>
+                
+            </ul>
+        
+            <p class="description">event</p>
+            <p>Incia la ejecución de una rutina cuando una rutina indicada produce un evento específico.</p>
+            <ul>
+                
+                    <li><strong>name:</strong> Nombre de la rutina que se debe ejecutar cuando se produce el evento (Ej: 'rutina1:completed').</li>
+                
+            </ul>
+        
+            <p class="description">cron</p>
+            <p>Inicia una rutina en un día en formato numerico, donde 0 es domingo y 6 es sabado, y en el horario determinado en formato 24hs</p>
+            <ul>
+                
+                    <li><strong>day:</strong> Día en formato numérico (0-6), donde 0 es domingo y 6 es sabado.</li>
+                
+                    <li><strong>time:</strong> Hora en formato 24hs (HH:MM).</li>
+                
+            </ul>
+        
+            <p class="description">udp</p>
+            <p>Inicia una rutina cuando se recibe un mensaje UDP determinado en un puerto específico.</p>
+            <ul>
+                
+                    <li><strong>port:</strong> Número del puerto UDP.</li>
+                
+                    <li><strong>message:</strong> Mensaje como cadena de caracteres no vacío.</li>
+                
+            </ul>
+        
+        
+        <h2>Jobs</h2>
+        
+            <p class="description">wait</p>
+            <p>Genera una espera con un tiempo específico, puede servir para separar la ejecución de tareas en el tiempo</p>
+            <ul>
+                
+                    <li><strong>time:</strong> Tiempo de espera en milisegundos como número entero.</li>
+                
+            </ul>
+        
+            <p class="description">wakeOnLan</p>
+            <p>Inicia la activación de un dispositivo de red con capacidad WakeOnLan utilizando la dirección MAC</p>
+            <ul>
+                
+                    <li><strong>macAddress:</strong> Dirección MAC del dispositivo de red a encender. Ejemplo: 34-E1-2D-E5-05-01</li>
+                
+            </ul>
+        
+            <p class="description">sendUDP</p>
+            <p>Envía un mensaje UDP hacia un puerto e ip específicos</p>
+            <ul>
+                
+                    <li><strong>ip:</strong> Dirección IP del destino</li>
+                
+                    <li><strong>port:</strong> Número del puerto UDP</li>
+                
+                    <li><strong>message:</strong> Mensaje como cadena de caracteres no vacío</li>
+                
+            </ul>
+        
+            <p class="description">sendTCP</p>
+            <p>Envía un mensaje TCP hacia un puerto e ip específicos</p>
+            <ul>
+                
+                    <li><strong>ip:</strong> Dirección IP del destino</li>
+                
+                    <li><strong>port:</strong> Número del puerto TCP</li>
+                
+                    <li><strong>message:</strong> Mensaje como cadena de caracteres no vacío</li>
+                
+            </ul>
+        
+            <p class="description">sendArtnet</p>
+            <p>Emite una señal arnet</p>
+            <ul>
+                
+                    <li><strong>universe:</strong> Universo de la señal arnet</li>
+                
+                    <li><strong>channel:</strong> Canal de la señal arnet</li>
+                
+                    <li><strong>value:</strong> Valor de la señal arnet</li>
+                
+            </ul>
+        
+            <p class="description">sendCOM</p>
+            <p>Envía un mensaje serial hacia un puerto específico</p>
+            <ul>
+                
+                    <li><strong>port:</strong> Número del puerto serial</li>
+                
+                    <li><strong>value:</strong> Valor del mensaje serial</li>
+                
+            </ul>
+        
+        
+        <h2>Conditions</h2>
+        
+            <p class="description">ping</p>
+            <p>Comprueba si un dispositivo está conectado a la red utilizando un ping</p>
+            <ul>
+                
+                    <li><strong>ip:</strong> Dirección IP del dispositivo a comprobar</li>
+                
+            </ul>
+        
+            <p class="description">TCPAnswer</p>
+            <p>Envía un mensaje TCP a un puerto e ip específico y espera una respuesta determinada.</p>
+            <ul>
+                
+                    <li><strong>ip:</strong> Dirección IP del dispositivo con el que se va a comunicar</li>
+                
+                    <li><strong>port:</strong> Número del puerto TCP</li>
+                
+                    <li><strong>messageToSend:</strong> Mensaje como cadena de caracteres no vacío</li>
+                
+                    <li><strong>messageToExpect:</strong> Mensaje que se espera como una cadena de caracteres no vacío</li>
+                
+            </ul>
+        
+            <p class="description">UDPAnswer</p>
+            <p>Envía un mensaje UDP a un puerto e ip específico y espera una respuesta determinada.</p>
+            <ul>
+                
+                    <li><strong>port:</strong> Número del puerto UDP</li>
+                
+                    <li><strong>messageToSend:</strong> Mensaje como cadena de caracteres no vacío</li>
+                
+                    <li><strong>messageToExpect:</strong> Mensaje que se espera como una cadena de caracteres no vacío</li>
+                
+            </ul>
+        
+            <p class="description">COMAnswer</p>
+            <p>Envía un mensaje serial a un puerto específico y espera una respuesta determinada.</p>
+            <ul>
+                
+                    <li><strong>port:</strong> Número del puerto serial</li>
+                
+                    <li><strong>messageToSend:</strong> Mensaje como cadena de caracteres no vacío</li>
+                
+                    <li><strong>messageToExpect:</strong> Mensaje que se espera como una cadena de caracteres no vacío</li>
+                
+            </ul>
+        
+        
+</body>
+</html>

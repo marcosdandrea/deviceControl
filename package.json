@@ -1,21 +1,62 @@
 {
   "name": "devicecontrol",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Device Control Application",
+  "email": "pesp@proyecciones.net",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "electron --trace-warnings . --dev ",
+    "build": "electron-builder"
   },
-  "author": "Marcos D'Andrea",
+  "author": {
+    "name": "Marcos D'Andrea",
+    "email": "m.dandrea@proyecciones.net"
+  },
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^8.2.0",
     "electron": "^32.1.0",
-    "mocha": "^10.7.3",
-    "tai": "^3.0.0",
-    "tsx": "^4.19.1"
+    "electron-builder": "^25.0.0",
+    "wait-on": "^7.0.1"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "dmxnet": "^0.9.0",
     "express": "^4.21.0",
-    "sqlite3": "^5.1.7"
+    "ping": "^0.4.4",
+    "pjlink-control": "^1.1.0",
+    "socket.io": "^4.8.0",
+    "sqlite3": "^5.1.7",
+    "version": "^0.1.2"
+  },
+  "build": {
+    "appId": "com.proyecciones.devicecontrol",
+    "productName": "Device Control",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "README.html",
+      "src/**",
+      "index.js",
+      "!app/**"
+    ],
+    "asar": true,
+    "linux": {
+      "target": [
+        {
+          "target": "deb",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ],
+      "category": "Utility"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    }
   }
 }

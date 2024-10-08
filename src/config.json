@@ -1,0 +1,513 @@
+{
+    "routines": [
+        {
+            "id": "powerON",
+            "name": "Encendido General",
+            "description": "Encender servidor de video y proyectores y disponer el show en espera",
+            "isSequential": false,
+            "stopOnTaskFailure": false,
+            "autoEvaluateConditions": 60000,
+            "visible": true,
+            "trigger": [
+                {
+                    "type": "api",
+                    "params": {
+                        "method": "GET",
+                        "endpoint": "/trigger/powerON"
+                    }
+                }
+            ],
+            "tasks": [
+                {
+                    "name": "Encender servidor y esperar inicio de watchout",
+                    "retries": 15,
+                    "retryDelay": 20000,
+                    "job": {
+                        "type": "wakeOnLan",
+                        "params": {
+                            "macAddress": "C8:08:E9:8D:E5:CE"
+                        }
+                    },
+                    "condition": {
+                        "type": "TCPAnswer",
+                        "params": {
+                            "ip": "192.168.10.10",
+                            "port": 3039,
+                            "messageToSend": "authenticate 1\n",
+                            "messageToExpect": "Ready \"6.7.2\" \"WATCHPOINT\" \"Windows\" true"
+                        }
+                    }
+                },
+                {
+                    "name": "Encender Proyector Salón 1",
+                    "retries": 3,
+                    "retryDelay": 30000,
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.31",
+                            "port": 4352,
+                            "message": "%1POWR 1\\n"
+                        }
+                    },
+                    "condition": {
+                        "type": "TCPAnswer",
+                        "params": {
+                            "ip": "192.168.10.31",
+                            "port": 4352,
+                            "messageToSend": "%1POWR ?\\n",
+                            "messageToExpect": "%1POWR=1"
+                        }
+                    }
+                },
+                {
+                    "name": "Encender Proyector Salón 2",
+                    "retries": 3,
+                    "retryDelay": 30000,
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.32",
+                            "port": 4352,
+                            "message": "%1POWR 1\\n"
+                        }
+                    },
+                    "condition": {
+                        "type": "TCPAnswer",
+                        "params": {
+                            "ip": "192.168.10.32",
+                            "port": 4352,
+                            "messageToSend": "%1POWR ?\\n",
+                            "messageToExpect": "%1POWR=1"
+                        }
+                    }
+                },
+                {
+                    "name": "Encender Proyector Salón 3",
+                    "retries": 3,
+                    "retryDelay": 30000,
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.33",
+                            "port": 4352,
+                            "message": "%1POWR 1\\n"
+                        }
+                    },
+                    "condition": {
+                        "type": "TCPAnswer",
+                        "params": {
+                            "ip": "192.168.10.33",
+                            "port": 4352,
+                            "messageToSend": "%1POWR ?\\n",
+                            "messageToExpect": "%1POWR=1"
+                        }
+                    }
+                },
+                {
+                    "name": "Encender Proyector Salón 4",
+                    "retries": 3,
+                    "retryDelay": 30000,
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.34",
+                            "port": 4352,
+                            "message": "%1POWR 1\\n"
+                        }
+                    },
+                    "condition": {
+                        "type": "TCPAnswer",
+                        "params": {
+                            "ip": "192.168.10.34",
+                            "port": 4352,
+                            "messageToSend": "%1POWR ?\\n",
+                            "messageToExpect": "%1POWR=1"
+                        }
+                    }
+                },
+                {
+                    "name": "Encender Proyector Salón 5",
+                    "retries": 3,
+                    "retryDelay": 30000,
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.35",
+                            "port": 4352,
+                            "message": "%1POWR 1\\n"
+                        }
+                    },
+                    "condition": {
+                        "type": "TCPAnswer",
+                        "params": {
+                            "ip": "192.168.10.35",
+                            "port": 4352,
+                            "messageToSend": "%1POWR ?\\n",
+                            "messageToExpect": "%1POWR=1"
+                        }
+                    }
+                },
+                {
+                    "name": "Encender Proyector Salón 6",
+                    "retries": 3,
+                    "retryDelay": 30000,
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.36",
+                            "port": 4352,
+                            "message": "%1POWR 1\\n"
+                        }
+                    },
+                    "condition": {
+                        "type": "TCPAnswer",
+                        "params": {
+                            "ip": "192.168.10.36",
+                            "port": 4352,
+                            "messageToSend": "%1POWR ?\\n",
+                            "messageToExpect": "%1POWR=1"
+                        }
+                    }
+                },
+                {
+                    "name": "Encender Proyector Maqueta",
+                    "retries": 3,
+                    "retryDelay": 30000,
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.37",
+                            "port": 4352,
+                            "message": "%1POWR 1\\n"
+                        }
+                    },
+                    "condition": {
+                        "type": "TCPAnswer",
+                        "params": {
+                            "ip": "192.168.10.37",
+                            "port": 4352,
+                            "messageToSend": "%1POWR ?\\n",
+                            "messageToExpect": "%1POWR=1"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "powerOFF",
+            "name": "Apagado General",
+            "description": "Apagar servidor de video y proyectores",
+            "isSequential": false,
+            "stopOnTaskFailure": false,
+            "autoEvaluateConditions": 60000,
+            "visible": true,
+            "trigger": [
+                {
+                    "type": "api",
+                    "params": {
+                        "method": "GET",
+                        "endpoint": "/trigger/powerOFF"
+                    }
+                }
+            ],
+            "tasks": [
+                {
+                    "name": "Apagar servidor",
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.10",
+                            "port": 3039,
+                            "message": "poweroff\n"
+                        }
+                    }
+                },
+                {
+                    "name": "Apagar Proyector Salón 1",
+                    "retries": 3,
+                    "retryDelay": 30000,
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.31",
+                            "port": 4352,
+                            "message": "%1POWR 0\\n"
+                        }
+                    },
+                    "condition": {
+                        "type": "TCPAnswer",
+                        "params": {
+                            "ip": "192.168.10.31",
+                            "port": 4352,
+                            "messageToSend": "%1POWR ?\\n",
+                            "messageToExpect": "%1POWR=0"
+                        }
+                    }
+                },
+                {
+                    "name": "Encender Proyector Salón 2",
+                    "retries": 3,
+                    "retryDelay": 30000,
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.32",
+                            "port": 4352,
+                            "message": "%1POWR 1\\n"
+                        }
+                    },
+                    "condition": {
+                        "type": "TCPAnswer",
+                        "params": {
+                            "ip": "192.168.10.32",
+                            "port": 4352,
+                            "messageToSend": "%1POWR ?\\n",
+                            "messageToExpect": "%1POWR=0"
+                        }
+                    }
+                },
+                {
+                    "name": "Encender Proyector Salón 3",
+                    "retries": 3,
+                    "retryDelay": 30000,
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.33",
+                            "port": 4352,
+                            "message": "%1POWR 1\\n"
+                        }
+                    },
+                    "condition": {
+                        "type": "TCPAnswer",
+                        "params": {
+                            "ip": "192.168.10.33",
+                            "port": 4352,
+                            "messageToSend": "%1POWR ?\\n",
+                            "messageToExpect": "%1POWR=0"
+                        }
+                    }
+                },
+                {
+                    "name": "Encender Proyector Salón 4",
+                    "retries": 3,
+                    "retryDelay": 30000,
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.34",
+                            "port": 4352,
+                            "message": "%1POWR 0\\n"
+                        }
+                    },
+                    "condition": {
+                        "type": "TCPAnswer",
+                        "params": {
+                            "ip": "192.168.10.34",
+                            "port": 4352,
+                            "messageToSend": "%1POWR ?\\n",
+                            "messageToExpect": "%1POWR=0"
+                        }
+                    }
+                },
+                {
+                    "name": "Encender Proyector Salón 5",
+                    "retries": 3,
+                    "retryDelay": 30000,
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.35",
+                            "port": 4352,
+                            "message": "%1POWR 0\\n"
+                        }
+                    },
+                    "condition": {
+                        "type": "TCPAnswer",
+                        "params": {
+                            "ip": "192.168.10.35",
+                            "port": 4352,
+                            "messageToSend": "%1POWR ?\\n",
+                            "messageToExpect": "%1POWR=0"
+                        }
+                    }
+                },
+                {
+                    "name": "Encender Proyector Salón 6",
+                    "retries": 3,
+                    "retryDelay": 30000,
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.36",
+                            "port": 4352,
+                            "message": "%1POWR 0\\n"
+                        }
+                    },
+                    "condition": {
+                        "type": "TCPAnswer",
+                        "params": {
+                            "ip": "192.168.10.36",
+                            "port": 4352,
+                            "messageToSend": "%1POWR ?\\n",
+                            "messageToExpect": "%1POWR=0"
+                        }
+                    }
+                },
+                {
+                    "name": "Encender Proyector Maqueta",
+                    "retries": 3,
+                    "retryDelay": 30000,
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.37",
+                            "port": 4352,
+                            "message": "%1POWR 0\\n"
+                        }
+                    },
+                    "condition": {
+                        "type": "TCPAnswer",
+                        "params": {
+                            "ip": "192.168.10.37",
+                            "port": 4352,
+                            "messageToSend": "%1POWR ?\\n",
+                            "messageToExpect": "%1POWR=0"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "mainShowOnce",
+            "name": "Show Principal (Unico Disparo)",
+            "description": "Lanza un único disparo del show principal",
+            "isSequential": true,
+            "stopOnTaskFailure": false,
+            "autoEvaluateConditions": false,
+            "visible": true,
+            "trigger": [
+                {
+                    "type": "api",
+                    "params": {
+                        "method": "GET",
+                        "endpoint": "/trigger/mainShowOnce"
+                    }
+                }
+            ],
+            "tasks": [
+                {
+                    "name": "Disparar show principal",
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.10",
+                            "port": 3039,
+                            "message": "run \"mainShowOnce\" "
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "mainShowLoop",
+            "name": "Show Principal (Loop)",
+            "description": "Inicia la secuencia de disparo del show principal en Loop",
+            "isSequential": true,
+            "stopOnTaskFailure": false,
+            "autoEvaluateConditions": false,
+            "visible": true,
+            "trigger": [
+                {
+                    "type": "api",
+                    "params": {
+                        "method": "GET",
+                        "endpoint": "/trigger/mainShowLoop"
+                    }
+                }
+            ],
+            "tasks": [
+                {
+                    "name": "Disparar show principal",
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.10",
+                            "port": 3039,
+                            "message": "run \"mainShowLoop\" "
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "waitShow",
+            "name": "Modo Espera",
+            "description": "Cambia el show a modo espera",
+            "isSequential": true,
+            "autoEvaluateConditions": false,
+            "stopOnTaskFailure": false,
+            "visible": true,
+            "trigger": [
+                {
+                    "type": "api",
+                    "params": {
+                        "method": "GET",
+                        "endpoint": "/trigger/waitShow"
+                    }
+                }
+            ],
+            "tasks": [
+                {
+                    "name": "Disparar show de espera",
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.10",
+                            "port": 3039,
+                            "message": "run \"waitShow\" "
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "pcMarcos",
+            "name": "Notebook Marcos",
+            "description": "Rutina de prueba",
+            "isSequential": true,
+            "autoEvaluateConditions": 30000,
+            "stopOnTaskFailure": false,
+            "visible": true,
+            "trigger": [
+                {
+                    "type": "api",
+                    "params": {
+                        "method": "GET",
+                        "endpoint": "/trigger/marcos"
+                    }
+                }
+            ],
+            "tasks": [
+                {
+                    "name": "Disparar show de espera",
+                    "job": {
+                        "type": "wait",
+                        "params": {
+                            "time": 1000
+                        }
+                    }
+                }
+            ],
+            "conditions": [
+                {
+                    "type": "ping",
+                    "params": {
+                        "ip": "127.0.0.1"
+                    }
+                }
+            ]
+        }
+    ]
+}
