@@ -5,7 +5,7 @@
   "email": "pesp@proyecciones.net",
   "main": "src/index.js",
   "scripts": {
-    "dev": "electron --trace-warnings . --dev ",
+    "dev": "electron --trace-warnings ./index.js --dev ",
     "build": "electron-builder"
   },
   "author": {

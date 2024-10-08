@@ -2,7 +2,7 @@ import "./style.css"
 import { createContext, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { io } from 'socket.io-client'
-import { setRoutine, setRoutines, setSocketConnected } from '../Store/system.slice'
+import { setLocalIP, setRoutine, setRoutines, setSocketConnected } from '../Store/system.slice'
 
 const socketContext = createContext()
 const url = window.location.host.split(":")
@@ -19,6 +19,11 @@ const SocketContext = ({ children }) => {
         emit({
             channel: 'getRoutines',
             cb: (routines) => dispatch(setRoutines(routines))
+        })
+
+        emit({
+            channel: "getIP",
+            cb: (ip) => dispatch(setLocalIP(ip))
         })
     }
 

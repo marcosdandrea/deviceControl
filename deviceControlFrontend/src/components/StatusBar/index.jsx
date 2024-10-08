@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import "./statusBar.css"
 import Text, { fontFamilies } from "../Text";
+import { useSelector } from "react-redux";
 
 const StatusBar = () => {
 
     const timerRef = useRef()
     const [time, setTime] = useState("00:00")
+    const {localIP} = useSelector(state => state.system)
 
     useEffect(() =>{
 
@@ -22,7 +24,10 @@ const StatusBar = () => {
 
     return ( 
     <div className="statusBar">
-        <div/>
+        <Text
+            family={fontFamilies.regular}>
+            {`${localIP}`}
+        </Text>
         <Text
             family={fontFamilies.bold}>
             {`${time} hs`}

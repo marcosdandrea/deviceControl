@@ -4,6 +4,7 @@ const initialState =
     {
         SERVER_URL: "http://localhost",
         SERVER_PORT: 3030,
+        localIP: "0.0.0.0",
         socketConnected: false,
         routines: []
     }
@@ -25,6 +26,9 @@ const systemSlice = createSlice({
             }else{
                 state.routines.push(action.payload)
             }
+        },
+        setLocalIP: (state, action) => {
+            state.localIP = action.payload
         }
         
     }
@@ -33,7 +37,8 @@ const systemSlice = createSlice({
 export const {
     setSocketConnected,
     setRoutines,
-    setRoutine
+    setRoutine,
+    setLocalIP
 } = systemSlice.actions
 
 export default systemSlice.reducer
