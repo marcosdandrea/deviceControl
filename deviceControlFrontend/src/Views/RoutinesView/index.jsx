@@ -4,13 +4,21 @@ import Routine from "../../components/Routine";
 
 const RoutineView = () => {
 
-    const { routines } = useSelector(state => state.system)
+    const { routines, SERVER_URL, SERVER_PORT } = useSelector(state => state.system)
+
+    const handleOnKeyDown = (e) => {
+        if (e.keyCode === 123)
+            fetch(`${SERVER_URL}:${SERVER_PORT}/devmode`)
+    }
 
     return (
-        <div className="routines">
+        <div
+            tabIndex={0}
+            onKeyDown={handleOnKeyDown}
+            className="routines">
             {
                 routines.map(routine => (
-                    <Routine 
+                    <Routine
                         key={routine._id}
                         routineData={routine} />
                 ))

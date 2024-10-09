@@ -3,26 +3,26 @@ const { globals, CONSTANTS } = require('../../globals');
 const isDev = globals.ENVIRONMENT == CONSTANTS.envionment.development
 
 const createMainWindow = () => {
-    const win = new BrowserWindow({
+    globals.mainWindow = new BrowserWindow({
         show: false,
         webPreferences: {
             nodeIntegration: true
         }
     });
 
-    win.loadURL( isDev 
+    globals.mainWindow.loadURL( isDev 
             ? `http://localhost:5173` 
             : `http://localhost:${globals.SERVER_PORT}`)
 
-    win.setMenu(null)
+    globals.mainWindow.setMenu(null)
 
-    win.webContents.on("did-finish-load", ()=> {
+    globals.mainWindow.webContents.on("did-finish-load", ()=> {
         if (isDev || globals.DEV_TOOLS){
-            win.webContents.openDevTools();
+            globals.mainWindow.webContents.openDevTools();
         }else{
-            win.fullScreen = true;
+            globals.mainWindow.fullScreen = true;
         }
-        win.show();
+        globals.mainWindow.show();
     })
 }
 

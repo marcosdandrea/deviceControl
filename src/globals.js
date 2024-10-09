@@ -17,6 +17,7 @@ const globals = {
     SOCKET_SERVER: null,
     EVENTS: null,
     CONFIG: null,
+    mainWindow: null,
     ROUTINES: [],
     TRAY: null,
     AUTO_RUN_CONDITION_INTERVAL_MS: 60000 
