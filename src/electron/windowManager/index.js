@@ -17,7 +17,7 @@ const createMainWindow = () => {
     win.setMenu(null)
 
     win.webContents.on("did-finish-load", ()=> {
-        if (isDev){
+        if (isDev || globals.DEV_TOOLS){
             win.webContents.openDevTools();
         }else{
             win.fullScreen = true;

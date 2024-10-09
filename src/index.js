@@ -1,3 +1,4 @@
+require("./parseParams")
 const { app, dialog } = require("electron")
 const { Logger } = require("./log")
 const logger = new Logger("deviceControl", "/logs", 120, false)
@@ -8,7 +9,6 @@ const { loadConfigFile } = require("./odm")
 const { buildConfiguration } = require("./core")
 const { createTrayIcon } = require("./electron")
 const { createMainWindow } = require("./electron/windowManager")
-const { globals, CONSTANTS } = require("./globals")
 
 app.whenReady()
   .then(async () => {
@@ -17,7 +17,6 @@ app.whenReady()
     await loadConfigFile()
     await startServer()
     buildConfiguration()
-    if (globals.ENVIRONMENT == CONSTANTS.envionment.development) return
     createMainWindow()
   })
   .catch(async (e) => {
