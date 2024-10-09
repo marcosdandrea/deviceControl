@@ -17,9 +17,7 @@ const loadConfigFile = () => {
         const configPath = globals.ENVIRONMENT == CONSTANTS.envionment.development 
                                 ? path.join(__dirname, "..", "config.json") 
                                 : configFilePath
-                                
-        console.log (configPath)
-        
+                                        
         if (fs.existsSync(configPath)) {
             const configFile = JSON.parse(fs.readFileSync(configPath, 'utf8'));
             const result = validateConfig(configFile)
@@ -34,7 +32,7 @@ const loadConfigFile = () => {
             logger.info("Configuration file loaded successfully")
         } else {
             logger.error("Configuration file not found")
-            dialog.showErrorBox('Archivo de configuración no encontrado', 'Asegúrese que el archivo se encuentra en la misma carpeta que el ejecutable de esta aplicación.');
+            dialog.showErrorBox(`Archivo de configuración no encontrado', 'Asegúrese que el archivo se encuentra en la misma carpeta que el ejecutable de esta aplicación. ${configPath}`);
             reject()
         }
     })
