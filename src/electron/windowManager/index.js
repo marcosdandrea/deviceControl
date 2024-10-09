@@ -4,6 +4,8 @@ const isDev = globals.ENVIRONMENT == CONSTANTS.envionment.development
 
 const createMainWindow = () => {
     globals.mainWindow = new BrowserWindow({
+        width: 800,
+        height: 480,
         show: false,
         webPreferences: {
             nodeIntegration: true
@@ -19,8 +21,6 @@ const createMainWindow = () => {
     globals.mainWindow.webContents.on("did-finish-load", ()=> {
         if (isDev || globals.DEV_TOOLS){
             globals.mainWindow.webContents.openDevTools();
-        }else{
-            globals.mainWindow.fullScreen = true;
         }
         globals.mainWindow.show();
     })
