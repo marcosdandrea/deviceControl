@@ -32,7 +32,7 @@ const loadConfigFile = () => {
             logger.info("Configuration file loaded successfully")
         } else {
             logger.error("Configuration file not found")
-            dialog.showErrorBox(`Archivo de configuración no encontrado', 'Asegúrese que el archivo se encuentra en la misma carpeta que el ejecutable de esta aplicación. ${configPath}`);
+            dialog.showErrorBox('Archivo de configuración no encontrado', `Asegúrese que el archivo se encuentra en la misma carpeta que el ejecutable de esta aplicación. ${configPath}`);
             reject()
         }
     })
