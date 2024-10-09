@@ -2,7 +2,7 @@ import "./style.css"
 import { createContext, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { io } from 'socket.io-client'
-import { setLocalIP, setRoutine, setRoutines, setSocketConnected } from '../Store/system.slice'
+import { setLocalIP, setRoutine, setRoutines, setServerURL, setSocketConnected } from '../Store/system.slice'
 
 const socketContext = createContext()
 const url = window.location.host.split(":")
@@ -11,6 +11,7 @@ const socket = io.connect(`${url[0]}:3030`)
 const SocketContext = ({ children }) => {
 
     const dispatch = useDispatch()
+    dispatch(setServerURL(url))
 
     const handleOnConnect = () => {
         console.log('Conectado al socket')

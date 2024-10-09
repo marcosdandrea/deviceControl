@@ -29,6 +29,9 @@ const systemSlice = createSlice({
         },
         setLocalIP: (state, action) => {
             state.localIP = action.payload
+        },
+        setServerURL: (state, action) => {
+            state.SERVER_URL = action.payload
         }
         
     }
@@ -38,7 +41,8 @@ export const {
     setSocketConnected,
     setRoutines,
     setRoutine,
-    setLocalIP
+    setLocalIP,
+    setServerURL
 } = systemSlice.actions
 
 export default systemSlice.reducer
