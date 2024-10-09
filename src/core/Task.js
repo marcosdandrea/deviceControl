@@ -34,7 +34,6 @@ class Task extends events {
         if (condition && typeof retryTimeout !== "number" || retryTimeout < 20)
             throw new Error("Retry timeout must be a positive number greater than 20 (ms)");
 
-
         super();
         this._id = crypto.randomUUID();
         this.name = name || undefined;
@@ -110,7 +109,7 @@ class Task extends events {
     }
 
     async checkCondition(){
-        await this.condition.run(this.conditionArgs)   
+        return await this.condition.run(this.conditionArgs)   
     }
 
     #runJob() {
@@ -134,7 +133,7 @@ class Task extends events {
                     
                     if (this.failed) break;
 
-                    if (this.task?.condition && await this.checkCondition()){
+                    if (this?.condition && await this.checkCondition()){
                         this.completed = true;
                         break;
                     }

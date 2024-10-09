@@ -471,43 +471,6 @@
                     }
                 }
             ]
-        },
-        {
-            "id": "pcMarcos",
-            "name": "Notebook Marcos",
-            "description": "Rutina de prueba",
-            "isSequential": true,
-            "autoEvaluateConditions": 30000,
-            "stopOnTaskFailure": false,
-            "visible": true,
-            "trigger": [
-                {
-                    "type": "api",
-                    "params": {
-                        "method": "GET",
-                        "endpoint": "/trigger/marcos"
-                    }
-                }
-            ],
-            "tasks": [
-                {
-                    "name": "Disparar show de espera",
-                    "job": {
-                        "type": "wait",
-                        "params": {
-                            "time": 1000
-                        }
-                    }
-                }
-            ],
-            "conditions": [
-                {
-                    "type": "ping",
-                    "params": {
-                        "ip": "192.168.100.17"
-                    }
-                }
-            ]
         }
     ]
 }

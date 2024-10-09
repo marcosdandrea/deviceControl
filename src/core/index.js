@@ -37,14 +37,13 @@ const buildConfiguration = () => {
             const jobs = require("./jobs")
             const thisJob = jobs[task.job.type]
 
-            let thisCondition = null
+            let thisCondition = undefined
             if (task.condition) {
                 const conditions = require("./conditions")
                 thisCondition = conditions[task.condition.type]
 
                 if (typeof thisCondition === "undefined")
                     throw new Error(`Condition "${task.condition.type}" not found in conditions modules`)
-
             }
 
             if (typeof thisJob === "undefined")

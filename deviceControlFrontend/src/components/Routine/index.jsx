@@ -40,7 +40,7 @@ const Routine = ({ routineData }) => {
                     {routineData.name}
                 </Text>
                 <Text
-                    family={fontFamilies.light}
+                    family={fontFamilies.regular}
                     color={"var(--disabled)"}
                     size={12}>
                     {`Estado: ${statusDescription}`}

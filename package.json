@@ -6,6 +6,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "electron --trace-warnings ./index.js --dev ",
+    "prod": "electron --trace-warnings ./index.js ",
     "build": "electron-builder"
   },
   "author": {

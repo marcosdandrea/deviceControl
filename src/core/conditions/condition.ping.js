@@ -8,8 +8,10 @@ ping.run = async ({ip}) => {
             const res = await _ping.promise.probe(ip);
             if (res.alive) {
                 resolve(true)
+                return
             } else {
                 resolve(false)
+                return
             }
         } catch (error) {
             reject(error)

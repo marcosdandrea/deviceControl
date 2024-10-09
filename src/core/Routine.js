@@ -75,9 +75,8 @@ class Routine extends events {
 
             let conditionResult = undefined
             try {
-                conditionResult = await task.condition()
+                conditionResult = await task.condition.run(task.conditionArgs)
             } catch (error) {
-                console.log("ERROR:", error)
                 this.#eventEmitter(routineEvents.warning, `Error evaluating condition for task ${task.name}: ${error.message}`)
                 conditionResult = false
             } finally {

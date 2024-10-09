@@ -2,15 +2,24 @@ require("./docs.js")
 const fs = require('fs');
 const path = require('path');
 const types = require("../types.js")
-const { dialog } = require("electron")
-const { globals } = require('../globals');
+const { dialog, app } = require("electron")
+const { globals, CONSTANTS } = require('../globals');
 const { Logger } = require("../log/index.js");
 const logger = new Logger()
 
 const loadConfigFile = () => {
     logger.info("Loading config file")
+    const executablePath = path.dirname(app.getPath('exe'));
+    const configFilePath = path.join(executablePath, 'config.json');
+
     return new Promise((resolve, reject) => {
-        const configPath = path.join(__dirname, "..", "config.json")
+
+        const configPath = globals.ENVIRONMENT == CONSTANTS.envionment.development 
+                                ? path.join(__dirname, "..", "config.json") 
+                                : configFilePath
+                                
+        console.log (configPath)
+        
         if (fs.existsSync(configPath)) {
             const configFile = JSON.parse(fs.readFileSync(configPath, 'utf8'));
             const result = validateConfig(configFile)
@@ -199,7 +208,7 @@ function validateConfig(config) {
         }
     }
 
-    if (errors.length > 0) 
+    if (errors.length > 0)
         logger.warn("There were errors in config file")
 
     return errors;
