@@ -466,7 +466,7 @@
                         "params": {
                             "ip": "192.168.10.10",
                             "port": 3039,
-                            "message": "run \"waitShow\" "
+                            "message": "Authenticate 1 \r run \"waitShow\" "
                         }
                     }
                 }

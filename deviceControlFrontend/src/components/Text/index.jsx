@@ -1,6 +1,7 @@
 
 export const fontFamilies = {
     regular: "Roboto-Regular",
+    italic: "Roboto-Italic",
     medium: "Roboto-Medium",
     light: "Roboto-Light",
     thin: "Roboto-Thin",

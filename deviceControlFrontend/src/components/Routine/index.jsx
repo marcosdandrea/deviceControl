@@ -7,7 +7,6 @@ import RoutineButtonsContainer from "../RoutineButtonsContainer";
 const Routine = ({ routineData }) => {
     const [routineState, setRoutineState] = useState(RoutineStates.unknown)
     const [statusDescription, setStatusDescription] = useState("")
-    const [apiButton, setApiButton] = useState(null)
 
     const setRoutineStatus = () => {
         if (routineData.failed) {
@@ -35,9 +34,14 @@ const Routine = ({ routineData }) => {
             <div className="titles">
                 <Text
                     family={fontFamilies.medium}
-                    size={15}
+                    size={17}
                     style={{ textTransform: "uppercase" }}>
                     {routineData.name}
+                </Text>
+                <Text
+                    family={fontFamilies.italic}
+                    size={12}>
+                    {routineData.description}
                 </Text>
                 <Text
                     family={fontFamilies.regular}

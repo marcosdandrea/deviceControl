@@ -82,9 +82,16 @@ const LogsView = () => {
                 type: 'warning',
             })
 
+    }
 
+    const convertTimeToDate = (time) => {
+        const date = new Date(Number(time))
+        return `${String(date.getDate()).padStart(2, "0")}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getFullYear()).padStart(2, "0")}`
+    }
 
-
+    const convertTimeToHours = (time) => {
+        const date = new Date(Number(time))
+        return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}:${String(date.getSeconds()).padStart(2, "0")}.${String(date.getMilliseconds()).padStart(3, "0")}`
     }
 
     return (
@@ -130,7 +137,7 @@ const LogsView = () => {
                                 <DrawerFather
                                     key={logDate}
                                     id={logDate}
-                                    title={logDate}
+                                    title={convertTimeToDate(logDate)}
                                     buttons={
                                         <div>
                                             <RoutineButton
@@ -161,7 +168,7 @@ const LogsView = () => {
                                                 <Text
                                                     family={fontFamilies.regular}
                                                     size={14}>
-                                                    {log.time}
+                                                    {convertTimeToHours(log.time)}
                                                 </Text>
                                                 <Text
                                                     family={fontFamilies.bold}
@@ -169,8 +176,6 @@ const LogsView = () => {
                                                     {`${log.message}${log?.routine ? "" : " (system)"}`}
                                                 </Text>
                                             </DrawerChild>)
-
-
                                     }
                                 </DrawerFather>)
                             : <ScreenMessage
