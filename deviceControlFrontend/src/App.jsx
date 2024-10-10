@@ -6,12 +6,14 @@ import LogsView from './Views/LogsView'
 import ViewContextProvider, { VIEWS } from './Contexts/ViewContextProvider'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import GetIterativeIP from './components/GetIterativeIP'
 
 function App() {
 
   return (
     <Provider store={store}>
       <SocketContext>
+        <GetIterativeIP/>
         <ToastContainer position='bottom-right'/>
         <ViewContextProvider>
           <RoutineView key={VIEWS.routines} />

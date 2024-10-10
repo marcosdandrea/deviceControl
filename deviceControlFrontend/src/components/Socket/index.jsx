@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux'
 import { io } from 'socket.io-client'
 import { setLocalIP, setRoutine, setRoutines, setServerURL, setSocketConnected } from '../Store/system.slice'
 
-const socketContext = createContext()
+export const socketContext = createContext()
+
 const url = window.location.host.split(":")
 const socket = io.connect(`${url[0]}:3030`)
 
@@ -20,11 +21,6 @@ const SocketContext = ({ children }) => {
         emit({
             channel: 'getRoutines',
             cb: (routines) => dispatch(setRoutines(routines))
-        })
-
-        emit({
-            channel: "getIP",
-            cb: (ip) => dispatch(setLocalIP(ip))
         })
     }
 

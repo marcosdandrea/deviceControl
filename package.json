@@ -8,6 +8,7 @@
     "dev": "electron --trace-warnings ./index.js --dev ",
     "prod": "electron --trace-warnings ./index.js ",
     "build": "electron-builder",
+    "build-linux": "electron-builder --linux --arm64",
     "postinstall": "electron-builder install-app-deps"
   },
   "author": {
@@ -18,7 +19,7 @@
   "devDependencies": {
     "concurrently": "^8.2.0",
     "electron": "^32.1.0",
-    "electron-builder": "^25.0.0",
+    "electron-builder": "^25.1.7",
     "electron-rebuild": "^3.2.9",
     "wait-on": "^7.0.1"
   },
