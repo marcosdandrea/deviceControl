@@ -6,10 +6,10 @@ const app = globals.EXPRESS_APP
 
 app.get("/routines", routinesServices.getRoutines)
 
-app.get("/routine/logs/:id", routinesServices.getRoutineLogs)
+app.get("/routine/logs/:routineID", logServices.getRoutineLogs)
 
 app.get("/devmode", systemServices.devMode )
 
-app.delete("/log/:id", logServices.deleteLog)
+app.delete("/log/:routineID/:date", logServices.deleteLog)
 
 

@@ -18,16 +18,17 @@
     "concurrently": "^8.2.0",
     "electron": "^32.1.0",
     "electron-builder": "^25.0.0",
+    "electron-rebuild": "^3.2.9",
     "wait-on": "^7.0.1"
   },
   "dependencies": {
+    "better-sqlite3": "^11.3.0",
     "cors": "^2.8.5",
     "dmxnet": "^0.9.0",
     "express": "^4.21.0",
     "ping": "^0.4.4",
     "pjlink-control": "^1.1.0",
     "socket.io": "^4.8.0",
-    "sqlite3": "^5.1.7",
     "version": "^0.1.2"
   },
   "build": {
@@ -40,7 +41,8 @@
       "README.html",
       "src/**",
       "index.js",
-      "!app/**"
+      "!app/**",
+      "!logs/*.log"
     ],
     "asar": true,
     "linux": {

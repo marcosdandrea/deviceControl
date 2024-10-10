@@ -1,7 +1,8 @@
 require("./parseParams")
 const { app, dialog } = require("electron")
 const { Logger } = require("./log")
-const logger = new Logger("deviceControl", "/logs", 120, false)
+const logger = new Logger("deviceControl", "logs", 120, false)
+
 logger.info("Device Control started")
 require("./events")
 const { startServer } = require("./server")

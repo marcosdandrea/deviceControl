@@ -11,6 +11,7 @@ const globals = {
     ENVIRONMENT: CONSTANTS.envionment.production,
     LOCAL_IP: getLocalIP(),
     SERVER_PORT: 3030,
+    
     DEV_TOOLS: false,
     EXPRESS_APP: null,
     HTTP_SERVER: null,

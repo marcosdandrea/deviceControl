@@ -26,7 +26,6 @@ const LogsView = () => {
         try {
             const answer = await fetch(`${SERVER_URL}:${SERVER_PORT}/routine/logs/${selectedRoutineID}`)
             const logs = await answer.json()
-            console.log(logs)
             setRoutineLogs(logs)
         } catch (error) {
             console.error(error)
@@ -42,13 +41,6 @@ const LogsView = () => {
         }
     }, [])
 
-    const parseTime = (time) => {
-        const n = time.split(":")
-        const m = n[2].split(".")
-        if (n.length > 0)
-            return `${n[0].padStart(2, 0)}:${n[1].padStart(2, 0)}:${m[0].padStart(2, 0)}.${m[1].padStart(3, 0)}`
-    }
-
     const reloadLogs = () => {
         getRutineLogs()
     }
@@ -59,7 +51,7 @@ const LogsView = () => {
         const deleteEntry = async () => {
             toast.dismiss("confirm")
             try {
-                await fetch(`${SERVER_URL}:${SERVER_PORT}/log/${logDate}`, { method: "DELETE" })
+                await fetch(`${SERVER_URL}:${SERVER_PORT}/log/${selectedRoutineID}/${logDate}`, { method: "DELETE" })
                 reloadLogs()
             } catch (e) {
                 console.error(e)
@@ -169,12 +161,12 @@ const LogsView = () => {
                                                 <Text
                                                     family={fontFamilies.regular}
                                                     size={14}>
-                                                    {parseTime(log.timestamp)}
+                                                    {log.time}
                                                 </Text>
                                                 <Text
                                                     family={fontFamilies.bold}
                                                     size={14}>
-                                                    {log.message}
+                                                    {`${log.message}${log?.routine ? "" : " (system)"}`}
                                                 </Text>
                                             </DrawerChild>)
 

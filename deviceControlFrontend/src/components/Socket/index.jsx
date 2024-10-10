@@ -11,7 +11,7 @@ const socket = io.connect(`${url[0]}:3030`)
 const SocketContext = ({ children }) => {
 
     const dispatch = useDispatch()
-    dispatch(setServerURL(url[0]))
+    dispatch(setServerURL(`http://${url[0]}`))
 
     const handleOnConnect = () => {
         console.log('Conectado al socket')
