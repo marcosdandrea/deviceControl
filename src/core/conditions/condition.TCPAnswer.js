@@ -1,8 +1,9 @@
 const net = require('net');
+const errorTranslating = require("../common/errorTransalting")
 
 function TCPAnswer() { }
 
-const verbose = true
+const verbose = false
 
 TCPAnswer.run = async ({ ip, port, messageToSend, messageToExpect }) => {
     return new Promise((resolve, reject) => {
@@ -16,25 +17,25 @@ TCPAnswer.run = async ({ ip, port, messageToSend, messageToExpect }) => {
             if (verbose) console.log(`Message "${messageToSend}" sent to ${ip}:${port}`);
             clearTimeout(timeout)
             timeout = setTimeout(() => {
-                reject(new Error("Tiempo de espera agotado"))
+                reject("Tiempo de espera de respuesta agotado")
                 client.end()
             }, 20000)
         })
 
         client.on("data", (message) => {
             if (verbose) console.log(`Received: ${message.toString()}`)
+                
             if (message.toString().trim() === messageToExpect.trim()) {
                 resolve(true)
-                client.end()
             } else {
-                reject(new Error("No se ha recibido el mensaje esperado. Recibido: " + message.toString))
-                client.end()
+                reject(`No se recibió el mensaje esperado. Se esperaba "${messageToExpect}" y se recibió "${message.toString()}"`)
             }
+            client.end()
             clearTimeout(timeout)
         })
 
         client.on("error", (err) => {
-            reject(err)
+            reject(errorTranslating.net[err.code] + ": " + err.message);
             client.end()
         })
 

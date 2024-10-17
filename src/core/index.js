@@ -71,7 +71,7 @@ const buildConfiguration = () => {
 
         appendRoutineListeners(newRoutine)
 
-        newRoutine.arm()
+        newRoutine.enable()
         globals.ROUTINES.push(newRoutine)
     })
     //console.log (JSON.stringify(routines, null, 2))

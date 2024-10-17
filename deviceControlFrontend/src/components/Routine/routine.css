@@ -1,12 +1,15 @@
 .routine{
-    overflow: hidden;
     background-color: var(--cardBackground);
     border-radius: 5px;
     box-sizing: border-box;
-    width: 100%;
-    display: flex;
-    align-items: center;
+    overflow: hidden;
+}
 
+.routineBody{
+    display:  flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
 }
 
 .routine .titles{
@@ -14,6 +17,6 @@
     flex-direction: column;
     margin-left: 0.5rem;
     row-gap: 0.1rem;
-    padding: 0.2rem;
+    padding: 0.4rem;
     box-sizing: border-box;
 }
