@@ -1,8 +1,8 @@
 const dgram = require('dgram');
 
-function UDPAnswer() {}
+function UDPAnswer() { }
 
-UDPAnswer.run = ({ip, port, messageToSend, messageToExpect}) => {
+UDPAnswer.run = ({ ip, port, messageToSend, messageToExpect }) => {
     return new Promise((resolve, reject) => {
 
         let timeout = undefined;
@@ -22,16 +22,18 @@ UDPAnswer.run = ({ip, port, messageToSend, messageToExpect}) => {
                 client.close()
                 reject(new Error('Timeout'))
             }, 5000)
+
         })
 
         client.on('message', (message, rinfo) => {
-            if (message.toString() === messageToExpect) {
-                client.close()
+            if (message.toString() === messageToExpect)
                 resolve()
-                clearTimeout(timeout)
-            }
-        })
+            else
+                reject(new Error("No se ha recibido el mensaje esperado. Recibido: " + message.toString))
 
+            client.close()
+            clearTimeout(timeout)
+        })
 
     })
 }

@@ -27,7 +27,7 @@ TCPAnswer.run = async ({ ip, port, messageToSend, messageToExpect }) => {
                 resolve(true)
                 client.end()
             } else {
-                reject(new Error("No se ha recibido el mensaje esperado"))
+                reject(new Error("No se ha recibido el mensaje esperado. Recibido: " + message.toString))
                 client.end()
             }
             clearTimeout(timeout)
