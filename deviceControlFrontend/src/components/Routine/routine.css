@@ -5,6 +5,12 @@
     overflow: hidden;
 }
 
+.disabled{
+    background-color: var(--unknown);
+}
+
+
+
 .routineBody{
     display:  flex;
     justify-content: space-between;

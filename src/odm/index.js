@@ -42,11 +42,18 @@ function validateConfig(config) {
     logger.info("Validating config file")
     const errors = [];
 
+    const routinesIDs = []
+
     if (!config.hasOwnProperty("routines"))
         errors.push("El archivo de configuración debe tener una propiedad 'routines'.")
 
     for (const routineIndex in config.routines) {
         const routine = config.routines[routineIndex];
+
+        if (routinesIDs.includes(routine.id))
+            errors.push(`El id de rutina ${routine.id} se encuentra repetida en el archivo de configuración.`)
+
+        routinesIDs.push(routine.id)
 
         if (!routine.hasOwnProperty("id"))
             errors.push(`La rutina ${Number(routine) + 1} debe tener una propiedad 'id'.`)

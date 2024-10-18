@@ -5,6 +5,8 @@ import ExpandIcon from "./ExpandIcon"
 import WarningIcon from "./WarningIcon"
 import DeleteIcon from "./DeleteIcon"
 import RefreshIcon from "./RefreshIcon"
+import CheckDisabledIcon from "./CheckDisabled"
+import CheckEnabledIcon from "./CheckEnabled"
 
 export {
     LogIcon, 
@@ -13,5 +15,7 @@ export {
     ExpandIcon,
     WarningIcon,
     DeleteIcon,
-    RefreshIcon
+    RefreshIcon,
+    CheckDisabledIcon,
+    CheckEnabledIcon
 }

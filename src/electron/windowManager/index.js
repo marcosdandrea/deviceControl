@@ -1,4 +1,5 @@
-const { app, BrowserWindow } = require('electron');
+const {version} = require("../../../package.json")
+const { BrowserWindow } = require('electron');
 const { globals, CONSTANTS } = require('../../globals');
 const isDev = globals.ENVIRONMENT == CONSTANTS.envionment.development
 
@@ -7,6 +8,7 @@ const createMainWindow = () => {
         width: 800,
         height: 480,
         show: false,
+        title: `Device Control v${version}`,
         webPreferences: {
             nodeIntegration: true
         }
@@ -24,6 +26,8 @@ const createMainWindow = () => {
         }
         globals.mainWindow.show();
     })
+
+
 }
 
 module.exports = {

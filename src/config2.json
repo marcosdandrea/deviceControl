@@ -8,7 +8,6 @@
             "stopOnTaskFailure": false,
             "autoEvaluateConditions": 60000,
             "visible": true,
-            "enabled": true,
             "trigger": [
                 {
                     "type": "api",
@@ -202,7 +201,6 @@
             "isSequential": false,
             "stopOnTaskFailure": false,
             "autoEvaluateConditions": 60000,
-            "enabled": true,
             "visible": true,
             "trigger": [
                 {
@@ -388,7 +386,6 @@
             "isSequential": true,
             "stopOnTaskFailure": false,
             "autoEvaluateConditions": false,
-            "enabled": true,
             "visible": true,
             "trigger": [
                 {
@@ -420,7 +417,6 @@
             "isSequential": true,
             "stopOnTaskFailure": false,
             "autoEvaluateConditions": false,
-            "enabled": true,
             "visible": true,
             "trigger": [
                 {
@@ -452,7 +448,6 @@
             "isSequential": true,
             "autoEvaluateConditions": false,
             "stopOnTaskFailure": false,
-            "enabled": true,
             "visible": true,
             "trigger": [
                 {
@@ -472,46 +467,6 @@
                             "ip": "192.168.10.10",
                             "port": 3039,
                             "message": "Authenticate 1 \r run \"waitShow\" "
-                        }
-                    }
-                }
-            ]
-        },
-        {
-            "id": "test",
-            "name": "Pueba pjlink",
-            "description": "prueba pjlink",
-            "isSequential": true,
-            "autoEvaluateConditions": false,
-            "stopOnTaskFailure": false,
-            "visible": true,
-            "enabled": false,
-            "trigger": [
-                {
-                    "type": "api",
-                    "params": {
-                        "method": "GET",
-                        "endpoint": "/trigger/testpjlink"
-                    }
-                }
-            ],
-            "tasks": [
-                {
-                    "name": "Disparar show de espera",
-                    "retries": 3,
-                    "retryDelay": 3000,
-                    "job": {
-                        "type": "pjLinkCommand",
-                        "params": {
-                            "ip": "127.0.0.1",
-                            "command": "powerOn"
-                        }
-                    },
-                    "condition":{
-                        "type": "pjLinkStatus",
-                        "params": {
-                            "ip": "127.0.0.1",
-                            "command": "checkPowerOn"
                         }
                     }
                 }

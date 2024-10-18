@@ -18,6 +18,20 @@ io.on("connection", (socket) => {
         cb(logs)
     })
 
+    socket.on("enableRoutine", (routineID, cb) => {
+        const req = {}
+        req.params = routineID 
+        routineServices.enableRoutine(req, null, null)
+        cb()
+    })
+
+    socket.on("disableRoutine", (routineID, cb) => {
+        const req = {}
+        req.params = routineID 
+        routineServices.disableRoutine(req, null, null)
+        cb()
+    })
+
     socket.on("getIP", (_, cb) => {
         const networkInterfaces = os.networkInterfaces();
 

@@ -5,6 +5,7 @@ import RoutineButton from "../RoutineButton";
 import "./routineButtonsContainer.css"
 import { useContext, useEffect, useState } from "react";
 import { viewContext, VIEWS } from "../../Contexts/ViewContextProvider";
+import RoutineEnableButton from "../RoutineEnableButton";
 
 const RoutineButtonsContainer = ({ routineData }) => {
 
@@ -34,6 +35,7 @@ const RoutineButtonsContainer = ({ routineData }) => {
     }, [routineData])
 
     return (<div className="buttons">
+        <RoutineEnableButton routineData={routineData}/>
         <RoutineButton
             onPress={handleOnViewRoutineLogs}>
             <LogIcon
@@ -42,7 +44,7 @@ const RoutineButtonsContainer = ({ routineData }) => {
         {
             apiButton ?
                 <RoutineButton
-                    disable={routineData.running}
+                    disable={routineData.running || !routineData.enabled}
                     onPress={handleOnClickOnAPIButton}
                     color={"var(--fullfiled"}>
                     <PlayIcon

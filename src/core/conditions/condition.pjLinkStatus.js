@@ -9,7 +9,7 @@ const PjLinkCommands = {
   checkPowerOff: {
     send: "%1POWR=?",
     expected: "%1POWR=0",
-  },
+  }
 };
 
 function PjLinkStatus() {}

@@ -10,7 +10,7 @@ export const RoutineStates = Object.freeze({
     working: "working"
 })
 
-const RoutineStatusIndicator = ({ state }) => {
+const RoutineStatusIndicator = ({ state, routineEnabled }) => {
 
     const routineStatusRef = useRef(null)
     const [showLoader, setShowLoader] = useState(false)
@@ -32,7 +32,7 @@ const RoutineStatusIndicator = ({ state }) => {
             ref={routineStatusRef}
             className="routineStatusIndicator"
             style={{
-                backgroundColor: `var(--${RoutineStates[state]})`,
+                backgroundColor: routineEnabled ? `var(--${RoutineStates[state]})` : "GrayText",
                 width: showLoader ? `${routineRect.height}px` : "0.5rem"
             }}>
             {

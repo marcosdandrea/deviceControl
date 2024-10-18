@@ -14,9 +14,11 @@ const RoutineView = () => {
   return (
     <div className="routinesContainer">
       <div tabIndex={0} onKeyDown={handleOnKeyDown} className="routines">
-        {routines.map((routine) => (
-          <Routine key={routine._id} routineData={routine} />
-        ))}
+        {
+          routines.filter(routine => routine.visible)
+            .map((routine) => (
+              <Routine key={routine._id} routineData={routine} />
+            ))}
       </div>
     </div>
   );

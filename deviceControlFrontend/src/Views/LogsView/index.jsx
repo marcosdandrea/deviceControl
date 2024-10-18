@@ -3,13 +3,14 @@ import { useContext, useEffect, useState } from "react";
 import { viewContext, VIEWS } from "../../Contexts/ViewContextProvider";
 import SectionHeader from "../../components/SectionHeader";
 import RoutineButton from "../../components/RoutineButton";
-import { BackIcon, DeleteIcon, RefreshIcon } from "../../components/Icons";
+import { BackIcon, CheckEnabledIcon, DeleteIcon, RefreshIcon } from "../../components/Icons";
 import Text, { fontFamilies } from "../../components/Text";
 import { useSelector } from "react-redux";
 import Drawer, { DrawerChild, DrawerFather } from "../../components/Drawer";
 import { toast } from "react-toastify";
 import StandarButton from "../../components/StandarButton";
 import ScreenMessage from "../../components/ScreenMessage";
+import ShowSystemLogButton from "../../components/ShowSystemLogButton";
 
 const LogsView = () => {
     const { SERVER_URL, SERVER_PORT } = useSelector(state => state.system)
@@ -17,6 +18,22 @@ const LogsView = () => {
     const { routines } = useSelector(state => state.system)
     const [routine, setRoutine] = useState({})
     const [routineLogs, setRoutineLogs] = useState({})
+    const [showSystemLogs, setShowSystemLogs] = useState(true)
+    const [filteredLogs, setFilteredLogs] = useState({})
+
+    useEffect(()=>{
+        const filtered = {}
+        Object.keys(routineLogs).forEach(date => {
+            if (!filtered?.[date])
+                filtered[date] = []
+
+            routineLogs[date].forEach(log => {
+                if (showSystemLogs || log.routine!== "system")
+                    filtered[date].push(log)
+            })
+        })
+        setFilteredLogs (filtered)
+    }, [showSystemLogs, routineLogs])
 
     const handleOnGoBack = () => {
         setCurrentView(VIEWS.routines)
@@ -25,8 +42,8 @@ const LogsView = () => {
     const getRutineLogs = async () => {
         try {
             const answer = await fetch(`${SERVER_URL}:${SERVER_PORT}/routine/logs/${selectedRoutineID}`)
-            const logs = await answer.json()
-            setRoutineLogs(logs)
+            const allLogs = await answer.json()
+            setRoutineLogs(allLogs)
         } catch (error) {
             console.error(error)
         }
@@ -119,11 +136,12 @@ const LogsView = () => {
                             ▸ Logs
                         </Text>
                     </div>
+                    <ShowSystemLogButton setShowSystemLogs={setShowSystemLogs} showSystemLogs={showSystemLogs}/>
                     <div>
                         <RoutineButton
                             onPress={reloadLogs}>
-                                <RefreshIcon
-                                    color={"var(--cardBackground)"}/>
+                            <RefreshIcon
+                                color={"var(--cardBackground)"} />
                         </RoutineButton>
                     </div>
                 </div>
@@ -132,8 +150,8 @@ const LogsView = () => {
             <div className="logsContainer">
                 <Drawer>
                     {
-                        Object.keys(routineLogs).length > 0 ?
-                            Object.keys(routineLogs).map(logDate =>
+                        Object.keys(filteredLogs).length > 0 ?
+                            Object.keys(filteredLogs).map(logDate =>
                                 <DrawerFather
                                     key={logDate}
                                     id={logDate}
@@ -154,7 +172,7 @@ const LogsView = () => {
                                             </RoutineButton>
                                         </div>}>
                                     {
-                                        routineLogs[logDate].map((log, index) =>
+                                        filteredLogs[logDate].map((log, index) =>
                                             <DrawerChild
                                                 key={index}
                                                 style={{

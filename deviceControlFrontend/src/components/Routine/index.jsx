@@ -29,18 +29,20 @@ const Routine = ({ routineData }) => {
     }, [routineData])
 
     return (
-        <div className="routine">
+        <div className={routineData.enabled ? "routine" : "routine disabled"}>
             <div className="routineBody">
-            <RoutineStatusIndicator state={routineState} />
+            <RoutineStatusIndicator state={routineState} routineEnabled={routineData.enabled}/>
             <div className="titles">
                 <Text
                     family={fontFamilies.medium}
                     size={17}
+                    color={routineData.enabled ? "var(--textColor)" : "var(--disabled)"}
                     style={{ textTransform: "uppercase" }}>
                     {routineData.name}
                 </Text>
                 <Text
                     family={fontFamilies.italic}
+                    color={routineData.enabled ? "var(--textColor)" : "var(--disabled)"}
                     size={12}>
                     {routineData.description}
                 </Text>
@@ -48,7 +50,7 @@ const Routine = ({ routineData }) => {
                     family={fontFamilies.regular}
                     color={"var(--disabled)"}
                     size={12}>
-                    {`Estado: ${statusDescription}`}
+                    {`Estado: ${routineData.enabled ? statusDescription : "Deshabilitada"}`}
                 </Text>
             </div>
             <RoutineButtonsContainer
