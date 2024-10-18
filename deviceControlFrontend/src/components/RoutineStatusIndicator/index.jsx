@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./routineStatusIndicator.css"
 
 export const RoutineStates = Object.freeze({
@@ -12,18 +12,28 @@ export const RoutineStates = Object.freeze({
 
 const RoutineStatusIndicator = ({ state }) => {
 
+    const routineStatusRef = useRef(null)
     const [showLoader, setShowLoader] = useState(false)
+    const [routineRect, setRoutineRect] = useState({})
 
     useEffect(() => {
         setShowLoader(state === RoutineStates.working)
     }, [state])
 
+    useEffect(() => {
+        if (!routineStatusRef.current) return
+        const routineElement = routineStatusRef.current.parentNode
+        const routineRect = routineElement.getBoundingClientRect()
+        setRoutineRect (routineRect)
+    }, [routineStatusRef])
+
     return (
         <div
+            ref={routineStatusRef}
             className="routineStatusIndicator"
             style={{
                 backgroundColor: `var(--${RoutineStates[state]})`,
-                width: showLoader ? "3rem" : "0.5rem"
+                width: showLoader ? `${routineRect.height}px` : "0.5rem"
             }}>
             {
                 showLoader

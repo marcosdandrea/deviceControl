@@ -1,4 +1,5 @@
 const net = require('net')
+const errorTranslating = require("../common/errorTransalting")
 
 function sendTCP() { }
 
@@ -19,7 +20,7 @@ sendTCP.run = ({ ip, port, message }) => {
         });
     
         client.on("error", (err) => {
-            reject(`Error al conectar con el dispositivo: ${err.message}`);
+            reject(errorTranslating.net[err.code] + ": " + err.message);
         });
     });
 }

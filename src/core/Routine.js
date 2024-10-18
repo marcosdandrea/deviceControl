@@ -13,6 +13,7 @@ const routineEvents = Object.freeze({
     taskCompleted: "taskCompleted",
     taskFailed: "taskFailed",
     taskRetry: "taskRetry",
+    taskAborted: "taskAborted",
     warning: "warning",
     conditionsEvaluated: "conditionsEvaluated",
 })
@@ -47,7 +48,7 @@ class Routine extends events {
         this.tasks = []
         this.triggers = triggers || []
         this.stopIfFails = stopIfFails || false
-        this.enabled = true
+        this.enabled = false
         this.rearmOnFinish = true
         this.visible = visible || false
         this.state = routineState.unknown
@@ -111,6 +112,7 @@ class Routine extends events {
     enable() {
         this.enabled = true;
         this.#eventEmitter(routineEvents.enabled);
+        this.arm()
     }
 
     disable() {
@@ -149,8 +151,11 @@ class Routine extends events {
 
         task.on(taskEvents.retry, (e) => {
             this.#eventEmitter(routineEvents.taskRetry, task.toJSON())
-        }
-        )
+        })
+
+        task.on(taskEvents.aborted, () => {
+            this.#eventEmitter(routineEvents.taskAborted, task.toJSON());
+        })
 
         this.tasks.push(task)
         return task._id
@@ -202,6 +207,8 @@ class Routine extends events {
 
                 this.#disableAutoEvaluateConditions()
 
+                if (!this.enabled) return
+
                 try {
                     this.isRunning = true
                     this.failed = false
@@ -209,6 +216,7 @@ class Routine extends events {
                     this.armed = false
                     this.#eventEmitter(routineEvents.triggered, { name: this.name, id: this._id })
                     this.timeStarted = performance.now()
+
                     if (this.secuential)
                         await this.#runSecuential()
                     else
@@ -235,9 +243,9 @@ class Routine extends events {
             try {
                 await Promise.all(this.tasks.map(task => task.run()))
                 resolve()
-            } catch (error) {
-                //this.#eventEmitter(routineEvents.failed,task.name ?? task._id , error?.message)
-                this.tasks.forEach(task => task.abortTask())
+            } catch (errors) {
+                if (this.stopIfFails)
+                    this.tasks.forEach(task => task.abortTask())
                 reject()
             }
         })
@@ -245,13 +253,13 @@ class Routine extends events {
 
     async #runSecuential() {
         for (const task of this.tasks) {
+
             try {
                 await task.run()
-            } catch (error) {
-                console.error(error)
-                //this.#eventEmitter(routineEvents.failed, task.name ?? task._id , error?.message)
+            } catch (errors) {
                 if (this.stopIfFails) break
             }
+
         }
     }
 

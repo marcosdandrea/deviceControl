@@ -1,4 +1,5 @@
 const dgram = require('dgram');
+const errorTranslating = require('../common/errorTransalting');
 
 function UDPAnswer() {}
 
@@ -13,23 +14,25 @@ UDPAnswer.run = ({ip, port, messageToSend, messageToExpect}) => {
 
         client.send(messageToSend, port, ip, (err) => {
             if (err) {
-                reject(err)
+                reject(errorTranslating.dgram[err.name] + ': ' + err.message)
                 return
             }
 
             clearTimeout(timeout)
             timeout = setTimeout(() => {
                 client.close()
-                reject(new Error('Timeout'))
-            }, 5000)
+                reject('Tiempo de espera para la respuesta agotado')
+            }, 10000)
         })
 
         client.on('message', (message, rinfo) => {
             if (message.toString() === messageToExpect) {
-                client.close()
                 resolve()
-                clearTimeout(timeout)
+            }else{
+                reject(`No se recibió el mensaje esperado. Se esperaba "${messageToExpect}" y se recibió "${message.toString()}"`)
             }
+            client.close()
+            clearTimeout(timeout)
         })
 
 

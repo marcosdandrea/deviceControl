@@ -30,6 +30,7 @@ const Routine = ({ routineData }) => {
 
     return (
         <div className="routine">
+            <div className="routineBody">
             <RoutineStatusIndicator state={routineState} />
             <div className="titles">
                 <Text
@@ -53,6 +54,7 @@ const Routine = ({ routineData }) => {
             <RoutineButtonsContainer
                 routineData={routineData}
             />
+            </div>
         </div>);
 }
 

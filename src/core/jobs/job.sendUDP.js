@@ -1,4 +1,5 @@
 const dgram = require("dgram")
+const errorTranslating = require('../common/errorTransalting');
 
 function sendUDP() { }
 
@@ -13,7 +14,7 @@ sendUDP.run = ({ ip, port, message }) => {
 
         client.send(message, port, ip, (err) => {
             if (err)
-                reject(err)
+                reject(errorTranslating.dgram[err.name] + ': ' + err.message)
             else
                 resolve()
             client.close()

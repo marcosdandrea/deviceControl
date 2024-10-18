@@ -471,6 +471,76 @@
                     }
                 }
             ]
+        },
+        {
+            "id": "mainShowLoop",
+            "name": "Show Principal (Loop)",
+            "description": "Inicia la secuencia de disparo del show principal en Loop",
+            "isSequential": true,
+            "stopOnTaskFailure": false,
+            "autoEvaluateConditions": false,
+            "visible": true,
+            "trigger": [
+                {
+                    "type": "api",
+                    "params": {
+                        "method": "GET",
+                        "endpoint": "/trigger/mainShowLoop"
+                    }
+                }
+            ],
+            "tasks": [
+                {
+                    "name": "Disparar show principal",
+                    "job": {
+                        "type": "sendTCP",
+                        "params": {
+                            "ip": "192.168.10.10",
+                            "port": 3039,
+                            "message": "run \"mainShowLoop\" "
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "test",
+            "name": "Pueba pjlink",
+            "description": "prueba pjlink",
+            "isSequential": true,
+            "autoEvaluateConditions": false,
+            "stopOnTaskFailure": false,
+            "visible": true,
+            "trigger": [
+                {
+                    "type": "api",
+                    "params": {
+                        "method": "GET",
+                        "endpoint": "/trigger/testpjlink"
+                    }
+                }
+            ],
+            "tasks": [
+                {
+                    "name": "Disparar show de espera",
+                    "retries": 3,
+                    "retryDelay": 3000,
+                    "job": {
+                        "type": "pjLinkCommand",
+                        "params": {
+                            "ip": "127.0.0.1",
+                            "command": "powerOn"
+                        }
+                    },
+                    "condition":{
+                        "type": "pjLinkStatus",
+                        "params": {
+                            "ip": "127.0.0.1",
+                            "command": "checkPowerOn"
+                        }
+                    }
+                }
+            ]
         }
     ]
 }

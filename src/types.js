@@ -99,7 +99,7 @@ const types = {
             }
         },
         {
-            type: "sendArtnet",
+            type: "sendDMX",
             description: "Emite una señal arnet",
             params: {
                 universe: /^[0-9]+$/,
@@ -113,14 +113,14 @@ const types = {
             }
         },
         {
-            type: "sendCOM",
-            description: "Envía un mensaje serial hacia un puerto específico",
+            type: "pjLinkCommand",
+            description: "Controla dispositivos mediante PjLink",
             params: {
-                port: /^[0-9]+$/,
-                value: /^[0-9]+$/,
+                ip: /^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$/,
+                command: /^(powerOn|powerOff)$/,  // Métodos HTTP permitidos
                 descriptions: {
                     port: "Número del puerto serial",
-                    value: "Valor del mensaje serial"
+                    command: "Comando a enviar"
                 }
             }
         }
@@ -169,16 +169,14 @@ const types = {
             }
         },
         {
-            type: "COMAnswer",
-            description: "Envía un mensaje serial a un puerto específico y espera una respuesta determinada.",
+            type: "pjLinkStatus",
+            description: "Obtiene el estado de dispositivos mediante PjLink",
             params: {
-                port: /^[0-9]+$/,  // Número para el puerto
-                messageToSend: /^[\s\S]*\\?[\s\S]*$/,  // Mensaje como string no vacío
-                messageToExpect: /^[\s\S]*\\?[\s\S]*$/,  // Mensaje como string no vacío
+                ip: /^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$/,
+                command: /^(checkPowerOn|checkPowerOff)$/, 
                 descriptions: {
                     port: "Número del puerto serial",
-                    messageToSend: "Mensaje como cadena de caracteres no vacío",
-                    messageToExpect: "Mensaje que se espera como una cadena de caracteres no vacío"
+                    command: "Comando a pjLink para la consulta"
                 }
             }
         }
