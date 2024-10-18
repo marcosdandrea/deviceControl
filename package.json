@@ -1,6 +1,6 @@
 {
   "name": "devicecontrol",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Device Control Application",
   "email": "pesp@proyecciones.net",
   "main": "src/index.js",
